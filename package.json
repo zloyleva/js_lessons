@@ -1,0 +1,12 @@
+{
+  "name": "03",
+  "version": "1.0.0",
+  "description": "Failed to load the ESLint library for the document /home/zloyleva/Documents/IMT/JS/03/app.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

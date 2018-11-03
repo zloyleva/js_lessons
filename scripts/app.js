@@ -1,17 +1,26 @@
-import products from "data.js";
-// console.log(products.reduce( (a,b)=>a+b.price,0 ));
+const products = [
+	{"name": "Snikers #1", "price": 103.50, "image": "bg-01.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #2", "price": 152.14, "image": "bg-02.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #3", "price": 202.22, "image": "bg-03.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #4", "price": 240.00, "image": "bg-04.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #5", "price": 180.30, "image": "bg-05.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #6", "price": 186.50, "image": "bg-06.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	
+	{"name": "Snikers #7", "price": 111.60, "image": "bg-01.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #8", "price": 169.64, "image": "bg-02.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #9", "price": 215.20, "image": "bg-03.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #10", "price": 245.00, "image": "bg-04.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #11", "price": 109.30, "image": "bg-05.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #12", "price": 198.50, "image": "bg-06.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
 
-{/* <div class="col-lg-3 col-md-6 mb-4 catalog-item">
-	<div class="card">
-		<img class="card-img-top" src="bg-02.jpg" alt="Card image cap">
-		<div class="card-body">
-			<h5 class="card-title">Card title</h5>
-			<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-			<a href="#" class="btn btn-primary">Go somewhere</a>
-		</div>
-	</div>
-</div> */}
+	{"name": "Snikers #13", "price": 128.69, "image": "bg-01.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #14", "price": 179.00, "image": "bg-02.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #15", "price": 260.20, "image": "bg-03.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+	{"name": "Snikers #16", "price": 301.20, "image": "bg-03.jpg", "description": "This is very cool snikers. Nice colorfull and quality"},
+];
 
+const per_page = 6;
+let current_page = 0;
 
 function createNewElement(tag, ineerContent=null, classStr=null, attr=null){
 	var el;
@@ -49,18 +58,34 @@ function createCard(product){
 }
 
 var catalog = document.getElementById("catalog");
-// catalog.appendChild(createCard(products[0]));
-products.map((product)=>catalog.appendChild(createCard(product)));
 
-// var arr = [3, 6, [1, 5], 4, [7, [10, 8]]];
-var arr = [3, 6, 1, 5, 4, 7, 10, 8];
-
-function showElements(data_arr, pos){
-	console.log(data_arr[pos]);
-	if(!data_arr[pos+1]){
-		return;
+function renderProducts(){
+	catalog.innerHTML = "";
+	for(let i = startFromProduct(); i <= products.length;i++){
+		console.log(i);
+		if(i >= per_page + startFromProduct()){
+			break;
+		}
+		catalog.appendChild(createCard(products[i]));
 	}
-	showElements(data_arr, pos+1);
 }
 
-showElements(arr, 0);
+
+function startFromProduct(){
+	return per_page * current_page;
+}
+
+const pagination_links = document.getElementsByClassName("page-link");
+
+Array.from(pagination_links).map((el)=>{
+	el.addEventListener("click",(e)=>{
+		console.log(e.target.dataset.link);
+		current_page = e.target.dataset.link;
+		renderProducts();
+	});
+});
+
+
+// Run code
+
+renderProducts();
